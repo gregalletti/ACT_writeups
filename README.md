@@ -7,12 +7,12 @@ Here is a list of all the categories involved, with links to the corresponding f
 
 |Topic|Write ups|#challenges|#solved|
 |:---:|:-------:|:---------:|:-----:|
-|Shellcode||6|6 :heavy_check_mark:|
-|Mitigations||3|3 :heavy_check_mark:|
-|ROP||2|2 :heavy_check_mark:|
-|Reversing||2|2 :heavy_check_mark:|
-|Heap||2|1 :x:|
-|Symbolic Execution||2|2 :heavy_check_mark:|
-|Race Conditions||1|0 :x:|
-|Serialization||2|1 :x:|
-|PHP||1|1 :heavy_check_mark:|
+|Shellcode|[here](https://github.com/gregalletti/ACT_writeups/tree/main/shellcode)|6|6 :heavy_check_mark:|
+|Mitigations|[here](https://github.com/gregalletti/ACT_writeups/tree/main/mitigations)|3|3 :heavy_check_mark:|
+|ROP|[here](https://github.com/gregalletti/ACT_writeups/tree/main/rop)|2|2 :heavy_check_mark:|
+|Reversing|[here](https://github.com/gregalletti/ACT_writeups/tree/main/reversing)|2|2 :heavy_check_mark:|
+|Heap|[here](https://github.com/gregalletti/ACT_writeups/tree/main/heap)|2|1 :x:|
+|Symbolic Execution|[here](https://github.com/gregalletti/ACT_writeups/tree/main/symbolic)|2|2 :heavy_check_mark:|
+|Race Conditions|[here](https://github.com/gregalletti/ACT_writeups/tree/main/race)|1|0 :x:|
+|Serialization|[here](https://github.com/gregalletti/ACT_writeups/tree/main/serialization)|2|1 :x:|
+|PHP|[here](https://github.com/gregalletti/ACT_writeups/tree/main/php)|1|1 :heavy_check_mark:|
