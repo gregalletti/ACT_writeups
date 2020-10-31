@@ -5,14 +5,14 @@ The aim is to store all of them in order to keep them in a safe place and better
 
 Here is a list of all the categories involved, with links to the corresponding folders:
 
-|Topic|Write ups|# of challenges|
-|-----|---------|---------------|
-|Shellcode||6|
-|Mitigations||3|
-|ROP||2|
-|Reversing||2|
-|Heap||2|
-|Symbolic Execution||2|
-|Race Conditions||1|
-|Serialization||2|
-|PHP||1|
+|Topic|Write ups|#challenges|#solved|
+|:---:|:-------:|:---------:|:-----:|
+|Shellcode||6|6 :heavy_check_mark:|
+|Mitigations||3|3 :heavy_check_mark:|
+|ROP||2|2 :heavy_check_mark:|
+|Reversing||2|2 :heavy_check_mark:|
+|Heap||2|1 :x:|
+|Symbolic Execution||2|2 :heavy_check_mark:|
+|Race Conditions||1|0 :x:|
+|Serialization||2|1 :x:|
+|PHP||1|1 :heavy_check_mark:|
