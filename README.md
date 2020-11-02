@@ -15,6 +15,6 @@ Here is a list of all the categories involved, with links to the corresponding f
 |Reversing|[here](https://github.com/gregalletti/ACT_writeups/tree/main/reversing)|2|2 |:heavy_check_mark:|
 |Heap|[here](https://github.com/gregalletti/ACT_writeups/tree/main/heap)|2|1 |:x:|
 |Symbolic Execution|[here](https://github.com/gregalletti/ACT_writeups/tree/main/symbolic)|2|2 |:heavy_check_mark:|
-|Race Conditions|[here](https://github.com/gregalletti/ACT_writeups/tree/main/race)|1|0 |:x:|
-|Serialization|[here](https://github.com/gregalletti/ACT_writeups/tree/main/serialization)|2|1 |:x:|
+|Race Conditions|[here](https://github.com/gregalletti/ACT_writeups/tree/main/race)|1|1|:heavy_check_mark:|
+|Serialization|[here](https://github.com/gregalletti/ACT_writeups/tree/main/serialization)|2|2 |:heavy_check_mark:|
 |PHP|[here](https://github.com/gregalletti/ACT_writeups/tree/main/php)|1|1 |:heavy_check_mark:|
