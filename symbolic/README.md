@@ -1,7 +1,7 @@
-# prng
+# prng ![c](https://img.shields.io/badge/solved-success)
 ### Analysis
 ### Exploit
 
-# prodkey
+# prodkey ![c](https://img.shields.io/badge/solved-success)
 ### Analysis
 ### Exploit
