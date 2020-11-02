@@ -1,4 +1,4 @@
-# shellcode
+# shellcode ![c](https://img.shields.io/badge/solved-success)
 ### Analysis
 ### Exploit
 ```python
@@ -56,7 +56,7 @@ r.send(payload)
 r.interactive()
 ```
 
-# sh3llc0d3
+# sh3llc0d3 ![c](https://img.shields.io/badge/solved-success)
 ### Analysis
 ### Exploit
 ```python
@@ -108,7 +108,7 @@ r.send(payload)
 r.interactive()
 ```
 
-# gimme3bytes
+# gimme3bytes ![c](https://img.shields.io/badge/solved-success)
 ### Analysis
 ### Exploit
 ```python
@@ -139,7 +139,7 @@ r.send(payload)
 r.interactive()
 ```
 
-# server
+# server ![c](https://img.shields.io/badge/solved-success)
 ### Analysis
 ### Exploit
 First version, with dup2:
@@ -265,7 +265,7 @@ r.send(payload)
 r.interactive()
 ```
 
-# onlyreadwrite
+# onlyreadwrite ![c](https://img.shields.io/badge/solved-success)
 ### Analysis
 ### Exploit
 
