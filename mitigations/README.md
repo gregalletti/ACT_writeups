@@ -1,5 +1,9 @@
 # leakers ![c](https://img.shields.io/badge/solved-success)
 ### Analysis
+This challenge is again on a *buffer overflow* vulnerability, as we can immediately see from the disassembled source code on Ghidra. However, this time we can see through ```checksec ./leakers``` that a **canary** mitigation is enabled.
+
+Btw we can easily bypass it by exploiting the fact that there is a printf in the code that, as we know, prints strings until it finds a nulla byte 0x00. Moreover, a canary typically starts with this nulla byte in order to XXXXXX
+
 ### Exploit
 ```python
 from pwn import *
