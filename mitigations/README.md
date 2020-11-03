@@ -1,10 +1,13 @@
 # leakers ![c](https://img.shields.io/badge/solved-success)
 ### Analysis
-This challenge is again on a *buffer overflow* vulnerability, as we can immediately see from the disassembled source code on Ghidra. However, this time we can see through ```checksec ./leakers``` that a **canary** mitigation is enabled.
+This challenge is again on a *buffer overflow* vulnerability, as we can immediately see from the disassembled source code on ```Ghidra```. However, this time we can see through ```checksec ./leakers``` that a **canary** mitigation is enabled.
 
-Btw we can easily bypass it by exploiting the fact that there is a printf in the code that, as we know, prints strings until it finds a nulla byte 0x00. Moreover, a canary typically starts with this nulla byte in order to XXXXXX
+Btw we can easily bypass it by exploiting the fact that there is a printf in the code that, as we know, prints strings until it finds a null byte 0x00. Moreover, a canary typically starts with this null byte in order to XXXXXX.
 
 ### Exploit
+With this knowledge we can send some A's and analyze the memory after this point with ```x /20gx *buffer_address*```, and notice the presence of the canary after 104 bytes. After leaking and receiving it we can fully exploit this.
+
+First of all we send our shellcode in the first iteration of the loop, then we get the canary and after that we overwrite the Saved IP in order to jump to out code.
 ```python
 from pwn import *
 import time
@@ -47,6 +50,7 @@ r.interactive()
 
 # gonnaleak ![c](https://img.shields.io/badge/solved-success)
 ### Analysis
+Non mi ricordo
 ### Exploit
 ```python
 from pwn import *
@@ -99,6 +103,8 @@ r.interactive()
 
 # aslr ![c](https://img.shields.io/badge/solved-success)
 ### Analysis
+Same procedure to get the canary.
+Then because ASLR is enabled we have to calculate the offset (that is fixed) between an address in the stack
 ### Exploit
 ```python
 from pwn import *
