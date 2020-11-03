@@ -293,7 +293,7 @@ r.interactive()
 ### Analysis
 This challenge has an additional isssue because a log of system calls are disabled (as the title suggest, we can only use *read* and *write*). Actually running ```seccomp``` on the given executable we can see that we can also use *open*. 
 
-Knowing that, we will overflow the buffer with a open-read-write function call chain, in order to:
+Knowing that, we will overflow the buffer with a **open - read - write** function call chain, in order to:
 - **open** the file *./flag* in the server folder
 - **read** the file content and put it in the overflowed buffer
 - **write** the content of the buffer (so the flag) on stdout (so to us)
