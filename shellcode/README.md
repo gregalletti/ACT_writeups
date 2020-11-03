@@ -160,6 +160,11 @@ r.interactive()
 
 # server ![c](https://img.shields.io/badge/solved-success)
 ### Analysis
+The main issue with this challenge is that we don't have stdin or stdout due to the fact that everything is done on a remote server with a socket. Fortunately we can disassemble the server souce code with ```Ghidra```, where we notice that there is a fork() function call and a *buffer overflow* happening in the child process. Moreover, through ```gdb``` we notice
+
+Now we have 2 ways to expoit that: the first one is with the *dup2* function that we can use to "merge" all the file descriptors in one, so we merge the socket_fd with the stdin_fd, then the socket_fd with the stdout_fd, and then we can easily spawn a shell with the final file descriptor that will in a certain sense redirect all the message into only one file descriptor.
+
+The second way is to use only open 
 ### Exploit
 First version, with dup2:
 ```python
