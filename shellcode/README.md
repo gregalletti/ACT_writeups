@@ -124,7 +124,7 @@ r.interactive()
 ### Analysis
 This challenge is pretty much the same as multistage, but we have even more space in the buffer: as the name says, the buffer is only 3 bytes big.
 
-The real problem is: if we want to do a syscall, just its translation is of 2 bytes (0x0f and 0x05). So we must find a way to set up all the parameters in 1 byte!
+The real problem is: if we want to do a syscall, just its translation is of 2 bytes (```0x0f``` and ```0x05```). So we must find a way to set up all the parameters in 1 byte!
 
 Fortunately, by analyzing the program with ```gdb``` and putting a breakpoint right after the overflow, we can see that the values on the registers are already perfect to setup a read syscall, despite the rdx register: we can exploit the count parameter of the read function and thus load in rdx a very high value already present in the memory: the instruction ```pop rdx (0x5a)``` will occupy exactly 1 byte and will set all the needed parameters to execute a read.
 
