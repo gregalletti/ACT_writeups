@@ -1,6 +1,8 @@
 # shellcode ![c](https://img.shields.io/badge/solved-success)
 ### Analysis
+By analyzing the disassembled source code with ```Ghidra```, executing ```checksec ./shellcode``` and ```file ./shellcode``` we can see that this is a really trivial *buffer overflow* vulnerability, with 64-bit architecture, no mitigations techniques on a non-stripped file. We can notice that by overwriting the content of the bss we can also overwrite the Saved Instruction Pointer in order to hijack the flow of the program and redirect it to the overflowed buffer (at address 0x601080).
 ### Exploit
+First shellcode is the most trivial one, while the Second is position-independent:
 ```python
 from pwn import *
 
@@ -58,6 +60,7 @@ r.interactive()
 
 # sh3llc0d3 ![c](https://img.shields.io/badge/solved-success)
 ### Analysis
+This is pretty much the same of shellcode, but this time we can see from ```file ./shellcode``` that is on 32-bit architecture. That is, we have to write our shellcode in a different way (actually the main difference is the *int 0x80* instruction instead of *syscall*). 
 ### Exploit
 ```python
 from pwn import *
@@ -77,8 +80,9 @@ payload = payload.ljust(1000, b"\x90")
 r.send(payload)
 
 r.interactive()
+```
 
-# multistage
+# multistage ![c](https://img.shields.io/badge/solved-success)
 ### Analysis
 ### Exploit
 from pwn import *
