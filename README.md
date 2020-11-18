@@ -18,3 +18,4 @@ Here is a list of all the categories involved, with links to the corresponding f
 |Race Conditions|[here](https://github.com/gregalletti/ACT_writeups/tree/main/race)|1|1|:heavy_check_mark:|
 |Serialization|[here](https://github.com/gregalletti/ACT_writeups/tree/main/serialization)|2|2 |:heavy_check_mark:|
 |PHP|[here](https://github.com/gregalletti/ACT_writeups/tree/main/php)|1|1 |:heavy_check_mark:|
+|XSS|[here](https://github.com/gregalletti/ACT_writeups/tree/main/XSS)|3|1 |:x:|
