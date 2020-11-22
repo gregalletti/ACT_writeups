@@ -1,4 +1,4 @@
-# ACT_writeups
+# ACT Write ups
 This repo contains all the writeups of the **Advanced Cybersecurity Topics (ACT)** challenges given during the course of 2020/2021 Academic Year.
 
 The aim is to store all of them in order to keep them in a safe place and better explain some decisions.
