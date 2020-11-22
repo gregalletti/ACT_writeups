@@ -1,6 +1,6 @@
 # shellcode ![c](https://img.shields.io/badge/solved-success)
 ### Analysis
-By analyzing the disassembled source code with ```Ghidra```, executing ```checksec ./shellcode``` and ```file ./shellcode``` we can see that this is a really trivial *buffer overflow* vulnerability, with 64-bit architecture, no mitigations techniques on a non-stripped file. We can notice that by overwriting the content of the bss we can also overwrite the Saved Instruction Pointer in order to hijack the flow of the program and redirect it to the overflowed buffer (at address 0x601080). 
+By analyzing the disassembled source code with ```Ghidra```, executing ```checksec ./shellcode``` and ```file ./shellcode``` we can see that this is a really trivial *buffer overflow* vulnerability, with 64-bit architecture, no mitigations techniques on a non-stripped file. We can notice that by overwriting the content of the bss we can also overwrite the Saved Instruction Pointer in order to hijack the flow of the program and redirect it to the overflowed buffer (at address ```0x601080```). 
 
 After that, our shellcode will spawn a shell with *system("/bin/sh")* system call.
 ### Exploit
@@ -122,7 +122,7 @@ r.interactive()
 
 # gimme3bytes ![c](https://img.shields.io/badge/solved-success)
 ### Analysis
-This challenge is pretty much the same as multistage, but we have even more space in the buffer: as the name says, the buffer is only 3 bytes big.
+This challenge is pretty much the same as multistage, but we have even less space in the buffer: as the name says, the buffer is only 3 bytes big.
 
 The real problem is: if we want to do a syscall, just its translation is of 2 bytes (```0x0f``` and ```0x05```). So we must find a way to set up all the parameters in 1 byte!
 
