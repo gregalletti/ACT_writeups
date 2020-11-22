@@ -5,7 +5,7 @@ The aim is to store all of them in order to keep them in a safe place and better
 
 For now, all the challenges can be found [here](https://training.jinblack.it/challenges).
 
-Actual rank in scoreboard: 12th out of 57
+Actual rank in scoreboard: **12th** out of 57
 
 Here is a list of all the categories involved, with links to the corresponding folders:
 
