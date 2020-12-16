@@ -5,7 +5,7 @@ The aim is to store all of them in order to keep them in a safe place and better
 
 For now, all the challenges can be found [here](https://training.jinblack.it/challenges).
 
-Actual rank in scoreboard: **12th** out of 57
+Actual rank in scoreboard: **13th** out of 57
 
 Here is a list of all the categories involved, with links to the corresponding folders:
 
@@ -15,9 +15,10 @@ Here is a list of all the categories involved, with links to the corresponding f
 |Mitigations|[here](https://github.com/gregalletti/ACT_writeups/tree/main/mitigations)|3|3 |:heavy_check_mark:|
 |ROP|[here](https://github.com/gregalletti/ACT_writeups/tree/main/rop)|2|2 |:heavy_check_mark:|
 |Reversing|[here](https://github.com/gregalletti/ACT_writeups/tree/main/reversing)|2|2 |:heavy_check_mark:|
-|Heap|[here](https://github.com/gregalletti/ACT_writeups/tree/main/heap)|2|1 |:x:|
+|Heap|[here](https://github.com/gregalletti/ACT_writeups/tree/main/heap)|2|2 |:heavy_check_mark:|
 |Symbolic Execution|[here](https://github.com/gregalletti/ACT_writeups/tree/main/symbolic)|2|2 |:heavy_check_mark:|
 |Race Conditions|[here](https://github.com/gregalletti/ACT_writeups/tree/main/race)|1|1|:heavy_check_mark:|
 |Serialization|[here](https://github.com/gregalletti/ACT_writeups/tree/main/serialization)|2|2 |:heavy_check_mark:|
 |PHP|[here](https://github.com/gregalletti/ACT_writeups/tree/main/php)|1|1 |:heavy_check_mark:|
-|XSS|[here](https://github.com/gregalletti/ACT_writeups/tree/main/XSS)|3|2 |:x:|
+|XSS|[here](https://github.com/gregalletti/ACT_writeups/tree/main/XSS)|3|3 |:heavy_check_mark:|
+|Packer|[here](https://github.com/gregalletti/ACT_writeups/tree/main/packer)|1|0 |:x:|
