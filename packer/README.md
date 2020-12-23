@@ -1,8 +1,11 @@
-32 bits
-Open Ghidra and find the main, and search for the first instruction address: 0x0804985b
+# john ![c](https://img.shields.io/badge/solved-success)
+### Analysis & Exploit
+First of all let's analyze the source with `file`: cool, it's a 32-bit stripped ELF.
 
-We can look at the assembly code either from Ghidra or from gdb with: x /50i 0x0804985b
+We open *Ghidra* and search for the main through the `entry()` function, and search for the first instruction address: `0x0804985b`
 
+We can look at the assembly code either from Ghidra or from **gdb** with: `x /50i 0x0804985b`
+```assembly
    0x804985b:	lea    ecx,[esp+0x4]
    0x804985f:	and    esp,0xfffffff0
    0x8049862:	push   DWORD PTR [ecx-0x4]
@@ -16,13 +19,12 @@ We can look at the assembly code either from Ghidra or from gdb with: x /50i 0x0
    0x8049873:	push   0x53
  $ 0x8049878:	push   0x804970e 
    0x804987d:	call   0x804922b
-
-
-We see a weird function, let's see what it calls: from gdb we see call   0x804922b
+```
+We see a weird function, let's see what it calls: from gdb we see call 0x804922b
 After some rewriting with Ghidra we can see call decrypt_code
 
 Let's see what it does from Ghidra: after a memprotect on a 0x1000 size section with READ, WRITE, EXEC (7) it does something more interesting (gdb: x /50i 0x804922b)
-
+```assembly
    0x804922b:	push   ebp
    0x804922c:	mov    ebp,esp
    0x804922e:	sub    esp,0x8
@@ -60,14 +62,14 @@ Let's see what it does from Ghidra: after a memprotect on a 0x1000 size section 
    0x8049287:	jne    0x8049281
    0x8049289:	pop    eax
    0x804928a:	call   eax
-
+```
 
 It does a lot of operations and then a call eax is present, so we set a breakpoint to that address and see what it contains
 
 b * 0x804928a => eax = 0x804970e THIS IS THE SAME VALUE WE PUSHED IN THE MAIN FUNCTION BEFORE THE CALL decrypt_code ($)
 
 Let's step in the function (si), and then dump the next instructions (x /100i $eip)
-
+```assembly
 => 0x804970e:	push   ebp
    0x804970f:	mov    ebp,esp
    0x8049711:	sub    esp,0x18
@@ -92,11 +94,11 @@ Let's step in the function (si), and then dump the next instructions (x /100i $e
    0x804974d:	push   0x11
    0x8049752:	push   0x80492a0
    0x8049757:	call   0x804922b
-
+```
 That's cool, but we can see that we have another decrypt_code call at the end: this is not finished yet
 
 By looking at the next 200 instructions we can see that the decrypting routine is called 7 times in total
-
+```assembly
 => 0x804970e:	push   ebp
    0x804970f:	mov    ebp,esp
    0x8049711:	sub    esp,0x18
@@ -201,19 +203,19 @@ By looking at the next 200 instructions we can see that the decrypting routine i
    0x8049858:	nop
    0x8049859:	leave  
    0x804985a:	ret  
-
+```
 After that weird routine we can see two different printf calls: one must be the success and the other the failure 
 In fact, at (€) we see a jne    0x8049848, that if taken will avoid the first printf reaching the second one
 
 Now, let's figure out what is in the argument passed everytime we call the decrypting routine
 
-#1: 0x80492a0
-#2: 0x80492e5
-#3: 0x8049329
-#4: 0x80496ab
-#5: 0x80495e4
-#6: 0x8049546
-#7: 0x804951f
+1. 0x80492a0
+2. 0x80492e5
+3. 0x8049329
+4. 0x80496ab
+5. 0x80495e4
+6. 0x8049546
+7. 0x804951f
 
 To do that, just add a breakpoint at those addresses
 
@@ -794,5 +796,4 @@ eax            0x5f	===== '_'
 eax            0x5f	===== '_'
 eax            0x5f	===== '_'
 
-flag{packer-4_3-1337\&-annoying__}
-
+**flag{packer-4_3-1337\&-annoying__}**
