@@ -21,4 +21,4 @@ Here is a list of all the categories involved, with links to the corresponding f
 |Serialization|[here](https://github.com/gregalletti/ACT_writeups/tree/main/serialization)|2|2 |:heavy_check_mark:|
 |PHP|[here](https://github.com/gregalletti/ACT_writeups/tree/main/php)|1|1 |:heavy_check_mark:|
 |XSS|[here](https://github.com/gregalletti/ACT_writeups/tree/main/XSS)|3|3 |:heavy_check_mark:|
-|Packer|[here](https://github.com/gregalletti/ACT_writeups/tree/main/packer)|1|0 |:x:|
+|Packer|[here](https://github.com/gregalletti/ACT_writeups/tree/main/packer)|1|1 |:heavy_check_mark:|
