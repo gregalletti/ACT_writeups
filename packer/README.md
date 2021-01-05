@@ -223,7 +223,7 @@ To do that, just add a breakpoint at those addresses
 
 - b * 0x80492a0
 - x /50i $eip
-
+```assembly
 => 0x80492a0:	adc    DWORD PTR [ecx+0x18ec83e5],ecx
    0x80492a6:	sub    esp,0x8
    0x80492a9:	push   0x804a039
@@ -244,7 +244,7 @@ To do that, just add a breakpoint at those addresses
    0x80492de:	mov    eax,0x0
    0x80492e3:	leave  
    0x80492e4:	ret    
-
+```
 #2 ==================================================
 
 - b * 0x80492e5
@@ -255,7 +255,7 @@ Yes hbreak, but before that let's close gdb and reopen it, and then use the 'sta
 - hbreak * 0x80492e5
 
 - x /50i $eip
-
+```assembly
 => 0x80492e5:	push   ebp
    0x80492e6:	mov    ebp,esp
    0x80492e8:	sub    esp,0x8
@@ -279,7 +279,7 @@ Yes hbreak, but before that let's close gdb and reopen it, and then use the 'sta
    0x8049322:	mov    eax,0x0
    0x8049327:	leave  
    0x8049328:	ret    
-
+```
 cmp    al,0x7d tells us that the last character must be a 0x7d = }
 we can chek it by printing the parameter pushed just before the printf call.
 
@@ -288,7 +288,7 @@ we can chek it by printing the parameter pushed just before the printf call.
 - hbreak * 0x8049329
 
 - x /50i $eip
-
+```assembly
 => 0x8049329:	push   ebp
    0x804932a:	mov    ebp,esp
    0x804932c:	sub    esp,0x18
@@ -319,7 +319,7 @@ we can chek it by printing the parameter pushed just before the printf call.
    0x804937e:	mov    eax,0x1
    0x8049383:	leave  
    0x8049384:	ret    
-
+```
 Sometimes is better to start from the easiest part. In fact if we access the parameter passed to the printf we can see that this section only checks if there are all ASCII characters: we avoided looking at all the instructions
 
 
@@ -328,7 +328,7 @@ Sometimes is better to start from the easiest part. In fact if we access the par
 - hbreak * 0x80496ab
 
 - x /50i $eip
-
+```assembly
 => 0x80496ab:	push   ebp
    0x80496ac:	mov    ebp,esp
    0x80496ae:	push   ebx
@@ -361,14 +361,14 @@ Sometimes is better to start from the easiest part. In fact if we access the par
    0x8049709:	mov    ebx,DWORD PTR [ebp-0x4]
    0x804970c:	leave  
    0x804970d:	ret    
-
+```
 Ah shit, here we go again.. anothe decrypt_code call 
 Let's do it again, removing the breakpoints for what we already completed
 
 -- hb * 0x8049385
 
 -- x /150i $eip
-
+```assembly
 => 0x8049385:	push   ebp
    0x8049386:	mov    ebp,esp
    0x8049388:	sub    esp,0x28
@@ -430,7 +430,7 @@ Let's do it again, removing the breakpoints for what we already completed
    0x8049458:	cvttss2si eax,xmm0
    0x804945c:	leave  
    0x804945d:	ret  
-
+```
 No way I'm gonna try to solve this, so let's get smarter: in the outer function we have    0x80496ed:	cmp    ebx,eax
 Set another breakpoint to that address and try to analyze the situation:
 
@@ -459,7 +459,7 @@ So we have a partial flag like flag{packer}
 - hbreak * 0x80495e4
 
 - x /50i $eip
-
+```assembly
 => 0x80495e4:	push   ebp
    0x80495e5:	mov    ebp,esp
    0x80495e7:	push   edi
@@ -525,7 +525,7 @@ So we have a partial flag like flag{packer}
    0x80496a8:	pop    edi
    0x80496a9:	pop    ebp
    0x80496aa:	ret    
-
+```
 Unpacking AGAIN.
 
    0x8049687:	cmp    DWORD PTR [ebp-0x7c],0xa
@@ -535,7 +535,7 @@ These rows tell us that we will loop and check for 0xa = 10 times +1, so 11 char
 -- hb * 0x804945e
 
 We have some fancy operations again, with sqrt() and pow() 
-
+```assembly
 => 0x804945e:	push   ebp
    0x804945f:	mov    ebp,esp
    0x8049461:	sub    esp,0x38
@@ -599,7 +599,7 @@ We have some fancy operations again, with sqrt() and pow()
    0x804951a:	movzx  eax,al
    0x804951d:	leave  
    0x804951e:	ret 
-
+```
 But by looking at these 2 lines 
    0x80494ab:	fcomi  st,st(1)
    ...
@@ -635,7 +635,7 @@ So far the flag is flag{packer-4_3-1337}
 - hb * 0x8049546
 
 - x /50i $eip
-
+```assembly
 => 0x8049546:	push   ebp
    0x8049547:	mov    ebp,esp
    0x8049549:	push   ebx
@@ -689,7 +689,7 @@ So far the flag is flag{packer-4_3-1337}
    0x80495df:	mov    ebx,DWORD PTR [ebp-0x4]
    0x80495e2:	leave  
    0x80495e3:	ret    
-
+```
 We can easily see that this is a recursive function, in fact it calls itself near the end.
 
 Those 2 lines are the most important one:
