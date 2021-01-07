@@ -8,6 +8,59 @@ For this reason I dropped the idea of understanding the code, and moved on angr 
 
 With a basic script we can retrieve the flag, that is: **flag{y0u_d4_qu33n_0f_cr4ck1ngz}**
 
+First script (classic angr):
+```python
+import angr
+import claripy
+
+FLAG_LEN = 31
+STDIN_FD = 0
+
+base_addr = 0x100000 # To match addresses to Ghidra , main_opts={'base_addr': base_addr}
+
+proj = angr.Project("./keycheck_baby", main_opts={'base_addr': base_addr}) 
+
+flag_chars = [claripy.BVS('flag_%d' % i, 8) for i in range(FLAG_LEN)]
+flag = claripy.Concat( *flag_chars + [claripy.BVV(b'\n')]) # Add \n for scanf() to accept the input
+
+state = proj.factory.full_init_state(
+        args=['./keycheck_baby'],
+        add_options=angr.options.unicorn,
+        stdin=flag,
+)
+
+# Add constraints that all characters are printable
+
+for k in flag_chars:
+    state.solver.add(k >= ord('!'))
+    state.solver.add(k <= ord('~'))
+
+
+simgr = proj.factory.simulation_manager(state)
+find_addr  = 0x1013f8 # SUCCESS 101471 10136a 1013f8
+avoid_addr = 0x101487 # FAILURE 102058 101487 
+simgr.explore(find=find_addr, avoid=avoid_addr)
+
+if (len(simgr.found) > 0):
+    for found in simgr.found:
+        print(found.posix.dumps(STDIN_FD))
+```
+
+Second script (super cool):
+```python
+import claripy
+import angr
+
+p=angr.Project('./keycheck_baby')
+
+simfile = angr.SimPackets('input')
+
+st = p.factory.entry_state(stdin=simfile);
+sm = p.factory.simulation_manager(st)
+sm.explore(find=lambda s: b"Your input looks" in s.posix.dumps(1))
+for s in sm.found:
+    print(s.posix.dumps(0))
+```
 ## lolshop
 This is a serialization challenge, and we are given the link of the website and also the source, and the hint that the flag is in /secret/flag.txt file path. 
 
@@ -97,7 +150,9 @@ print(x.text)
 ```
 
 After sending the request we get this output:
+
 ![response](./lolshop.png)
+
 We know that the flag is encoded in base64, so with a simple conversion we obtain: **actf{welcome_to_the_new_web_0836eef79166b5dc8b}**
 
 ## positiveleak
