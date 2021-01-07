@@ -12,14 +12,15 @@ This is a serialization challenge, and we are given the link of the website and 
 
 First of all, let's explore the code and make a plan: we can see that there is only one method that unserializes an object, located in State.php called restore($token).
 
-
+```php
     static function restore($token) {
         return unserialize(gzuncompress(base64_decode($token)));
     }
-
+```
 
 After that, we can notice that the only path we can see in all these files is the one representing the products' image: if we are able to modify this, we may obtain the flag as the image of one of the products. This is located in Products.php.
 
+```php
 function getPicture() {
         $path = '/var/www/assets/' . $this->picture;
         $data = base64_encode(file_get_contents($path));
@@ -39,7 +40,7 @@ function getPicture() {
             "price" => $this->price
         );
     }
-
+```
 
 So: 
 1. Start from the 
