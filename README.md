@@ -30,8 +30,8 @@ Here is a list of all the categories involved, with links to the corresponding f
 
 |Topic|Name|Write up|Solved|
 |:---:|:--:|:------:|:----:|
-|Shellcode|backtoshell|[here](https://github.com/gregalletti/ACT_writeups/tree/main/2019)|:heavy_check_mark:|
-|Symbolic|keycheck_baby|[here](https://github.com/gregalletti/ACT_writeups/tree/main/2019)|:heavy_check_mark:|
-|Mitigations|positiveleak|[here](https://github.com/gregalletti/ACT_writeups/tree/main/2019)|:heavy_check_mark:|
-|Serialization|lolshop|[here](https://github.com/gregalletti/ACT_writeups/tree/main/2019/)|:heavy_check_mark:|
-|Heap|asciigal|[here](https://github.com/gregalletti/ACT_writeups/tree/main/2019)|:heavy_check_mark:|
+|Shellcode|backtoshell|[here](https://github.com/gregalletti/ACT_writeups/blob/main/2019/README.md#backtoshell)|:heavy_check_mark:|
+|Symbolic|keycheck_baby|[here](https://github.com/gregalletti/ACT_writeups/blob/main/2019/README.md#keycheck_baby)|:heavy_check_mark:|
+|Serialization|lolshop|[here](https://github.com/gregalletti/ACT_writeups/blob/main/2019/README.md#lolshop)|:heavy_check_mark:|
+|Mitigations|positiveleak|[here](https://github.com/gregalletti/ACT_writeups/blob/main/2019/README.md#positiveleak)|:heavy_check_mark:|
+|Heap|asciigal|[here](https://github.com/gregalletti/ACT_writeups/blob/main/2019/README.md#asciigal)|:heavy_check_mark:|
