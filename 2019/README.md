@@ -5,7 +5,7 @@ Here it comes the first problem: even with Ghidra, the second input check seems 
 
 For this reason I dropped the idea of understanding the code, and moved on angr to solve the challenge with symbolic execution.
 
-With a basic script we can retrieve the flag, that is: flag{y0u_d4_qu33n_0f_c4ck1ngz}
+With a basic script we can retrieve the flag, that is: flag{y0u_d4_qu33n_0f_cr4ck1ngz}
 
 ## lolshop
 This is a serialization challenge, and we are given the link of the website and also the source, and the hint that the flag is in /secret/flag.txt file path. 
@@ -44,4 +44,3 @@ After that, we can notice that the only path we can see in all these files is th
 
 So: 
 1. Start from the second one and search for all the methods that call the toDict() function of a product
-
