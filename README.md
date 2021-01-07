@@ -32,6 +32,6 @@ Here is a list of all the categories involved, with links to the corresponding f
 |:---:|:--:|:------:|:----:|
 |Shellcode|backtoshell|[here](https://github.com/gregalletti/ACT_writeups/tree/main/2019)|:heavy_check_mark:|
 |Symbolic|keycheck_baby|[here](https://github.com/gregalletti/ACT_writeups/tree/main/2019)|:heavy_check_mark:|
-|Mitigations|positiveleak[here](https://github.com/gregalletti/ACT_writeups/tree/main/2019)|:heavy_check_mark:|
+|Mitigations|positiveleak|[here](https://github.com/gregalletti/ACT_writeups/tree/main/2019)|:heavy_check_mark:|
 |Serialization|lolshop|[here](https://github.com/gregalletti/ACT_writeups/tree/main/2019/)|:heavy_check_mark:|
 |Heap|asciigal|[here](https://github.com/gregalletti/ACT_writeups/tree/main/2019)|:heavy_check_mark:|
