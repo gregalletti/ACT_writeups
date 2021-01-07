@@ -7,6 +7,8 @@ For now, all the challenges can be found [here](https://training.jinblack.it/cha
 
 Actual rank in scoreboard: **11th** (actually **1st** with same points) out of 57
 
+## Course challenges
+
 Here is a list of all the categories involved, with links to the corresponding folders:
 
 |Topic|Write ups|#challenges|#solved| |
@@ -22,3 +24,14 @@ Here is a list of all the categories involved, with links to the corresponding f
 |PHP|[here](https://github.com/gregalletti/ACT_writeups/tree/main/php)|1|1 |:heavy_check_mark:|
 |XSS|[here](https://github.com/gregalletti/ACT_writeups/tree/main/XSS)|3|3 |:heavy_check_mark:|
 |Packer|[here](https://github.com/gregalletti/ACT_writeups/tree/main/packer)|1|1 |:heavy_check_mark:|
+
+## Extra challenges (2019)
+Here is a list of all the categories involved, with links to the corresponding folders:
+
+|Topic|Name|Write up|Solved|
+|:---:|:--:|:------:|:----:|
+|Shellcode|backtoshell|[here](https://github.com/gregalletti/ACT_writeups/tree/main/2019)|:heavy_check_mark:|
+|Symbolic|keycheck_baby|[here](https://github.com/gregalletti/ACT_writeups/tree/main/2019)|:heavy_check_mark:|
+|Mitigations|positiveleak[here](https://github.com/gregalletti/ACT_writeups/tree/main/2019)|:heavy_check_mark:|
+|Serialization|lolshop|[here](https://github.com/gregalletti/ACT_writeups/tree/main/2019/)|:heavy_check_mark:|
+|Heap|asciigal|[here](https://github.com/gregalletti/ACT_writeups/tree/main/2019)|:heavy_check_mark:|
