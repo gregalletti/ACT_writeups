@@ -21,7 +21,7 @@ First of all, let's explore the code and make a plan: we can see that there is o
 After that, we can notice that the only path we can see in all these files is the one representing the products' image: if we are able to modify this, we may obtain the flag as the image of one of the products. This is located in Products.php.
 
 ```php
-function getPicture() {
+    function getPicture() {
         $path = '/var/www/assets/' . $this->picture;
         $data = base64_encode(file_get_contents($path));
         return $data;
@@ -43,4 +43,5 @@ function getPicture() {
 ```
 
 So: 
-1. Start from the 
+1. Start from the second one and search for all the methods that call the toDict() function of a product
+
