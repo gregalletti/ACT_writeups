@@ -47,6 +47,8 @@ time.sleep(0.1)
 r.interactive()
 ```
 
+**flag{canary_may_not_die!}**
+
 
 # gonnaleak ![c](https://img.shields.io/badge/solved-success)
 ### Analysis
@@ -142,3 +144,4 @@ r.send(payload)
 
 r.interactive()
 ```
+**flag{you_can_also_leak_the_binary_And_compute_bss!}**
