@@ -1,6 +1,7 @@
 # bcloud ![c](https://img.shields.io/badge/solved-success)
 ### Analysis
 ### Exploit
+**flag{you_got_horse_of_force!}**
 
 # cookbook ![c](https://img.shields.io/badge/solved-success)
 ### Analysis
@@ -24,3 +25,4 @@ SYSTEM_OFFSET = 0x4d200
 
 
 ### Exploit
+**flag{house_of_force_once_again!}**
