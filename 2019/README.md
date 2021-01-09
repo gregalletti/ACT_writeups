@@ -192,3 +192,13 @@ After sending the request we get this output:
 We know that the flag is encoded in base64, so with a simple conversion we obtain: **actf{welcome_to_the_new_web_0836eef79166b5dc8b}**
 
 ## positiveleak
+First of all, we run checksec to see what mitigations are enabled: 64-bit ELF with Partial RELRO, Canary, NX enabled, PIE enabled.
+
+Let's now try to play with the executable a little bit, and maybe we can discover something interesting.
+
+We can insert or print some numbers (initially all 0s), but if we try to insert it asks us how many numbers, and then the numbers themselves. If we put any number in the first request, and then we skip the "real" insertion and look for the results, we can notice something interesting:
+
+The first two numbers displayed are 140723217504405 and 94243136696884, that in hex correspond to 0x7ffcad641891 and 0x55b6b0af7234. Cool, smell like memory addresses.
+
+Let's have a better look with Ghidra, in order to figure out what are those numbers.
+
