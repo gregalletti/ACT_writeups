@@ -2,7 +2,7 @@
 ### Analysis
 ### Exploit
 
-# cookbook ![c](https://img.shields.io/badge/incomplete-critical)
+# cookbook ![c](https://img.shields.io/badge/solved-success)
 ### Analysis
 After a rapid analysis with file and checksec we can see that is stripped, so let's open the binary with Ghidra to better understand how it works. Search for the entry function, and consequentely the real main(). After an easy exploration of the code we can see that there is a mistake in the create_recipe function: cur_recipe is not set to NULL after the object is freed. This is a Use-after-Free vulnerability, that we can use to leak an address of the heap (by sending 'p' so calling the print_recipe_info function), leading us to calculate the base address of the heap.
 
