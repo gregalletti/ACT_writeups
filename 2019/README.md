@@ -1,4 +1,4 @@
-## backtoshell
+## backtoshell ![c](https://img.shields.io/badge/solved-success)
 Really easy shellcode challenge, where we have a read of 0x200 bytes and after that every register is set to 0, then the code jumps to the buffer in which our input has been stored and executes it.
 
 The main issue (easily bypassable) is the zeroing of the registers, also rsp, so we can't use the stack in our shellcode.
@@ -35,7 +35,7 @@ r.interactive()
 
 And this is the flag: **flag{Congratulation_you_got_aa_working_shellcode_!}**
 
-## keycheck_baby
+## keycheck_baby ![c](https://img.shields.io/badge/solved-success)
 After a rapid analysis we can see that it's a classic input guessing challenge. We can open it with Ghidra, and with a simple Python script we easily get the first part of the flag: flag{y0u_d4_qu33n_
 
 Here it comes the first problem: even with Ghidra, the second input check seems unsolvable. 
@@ -97,7 +97,7 @@ sm.explore(find=lambda s: b"Your input looks" in s.posix.dumps(1))
 for s in sm.found:
     print(s.posix.dumps(0))
 ```
-## lolshop
+## lolshop ![c](https://img.shields.io/badge/solved-success)
 This is a serialization challenge, and we are given the link of the website and also the source, and the hint that the flag is in /secret/flag.txt file path. 
 
 First of all, let's explore the code and make a plan: we can see that there is only one method that unserializes an object, located in State.php called restore($token).
