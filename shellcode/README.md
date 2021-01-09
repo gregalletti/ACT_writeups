@@ -85,6 +85,7 @@ r.send(payload)
 
 r.interactive()
 ```
+**flag{really_good_sh3llc0der!!!}**
 
 # multistage ![c](https://img.shields.io/badge/solved-success)
 ### Analysis
@@ -119,6 +120,7 @@ r.send(payload)
 
 r.interactive()
 ```
+**flag{multistage_is_is_way_easier}**
 
 # gimme3bytes ![c](https://img.shields.io/badge/solved-success)
 ### Analysis
@@ -157,6 +159,7 @@ r.send(payload)
 
 r.interactive()
 ```
+**flag{you_need_only_3_bytes_to_get_a_shell!}**
 
 # server ![c](https://img.shields.io/badge/solved-success)
 ### Analysis
@@ -366,3 +369,4 @@ r.send(payload)
 
 r.interactive()
 ```
+**flag{you_do_not_need_a_shell_!}**
