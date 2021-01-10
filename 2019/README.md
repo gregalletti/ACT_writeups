@@ -1,9 +1,9 @@
 ## backtoshell ![c](https://img.shields.io/badge/solved-success)
-Really easy shellcode challenge, where we have a read of 0x200 bytes and after that every register is set to 0, then the code jumps to the buffer in which our input has been stored and executes it.
+Really easy shellcode challenge, where we have a `read` of `0x200` bytes and after that every register is set to 0, then the code jumps to the buffer in which our input has been stored and executes it.
 
 The main issue (easily bypassable) is the zeroing of the registers, also rsp, so we can't use the stack in our shellcode.
 
-After trying some fancy reads, I realized that one of the simplest execve shellcode would be enough, the only problem was where to store the /bin/sh string. Without making it complex, if we put this string after the system call, we dont' care about possible errors, because we will already have our shell.
+After trying some fancy reads, I realized that one of the simplest execve shellcode would be enough, the only problem was where to store the `/bin/sh` string. Without making it complex, if we put this string after the system call, we dont' care about possible errors, because we will already have our shell.
 
 So let's write some assembly, knowing that in rax we will initially have the starting address of the buffer:
 
@@ -36,7 +36,7 @@ r.interactive()
 And this is the flag: **flag{Congratulation_you_got_aa_working_shellcode_!}**
 
 ## keycheck_baby ![c](https://img.shields.io/badge/solved-success)
-After a rapid analysis we can see that it's a classic input guessing challenge. We can open it with Ghidra, and with a simple Python script we easily get the first part of the flag: flag{y0u_d4_qu33n_
+After a rapid analysis we can see that it's a classic input guessing challenge. We can open it with `Ghidra`, and with a simple `Python` script we easily get the first part of the flag: flag{y0u_d4_qu33n_
 
 Here it comes the first problem: even with Ghidra, the second input check seems unsolvable. 
 
@@ -98,9 +98,9 @@ for s in sm.found:
     print(s.posix.dumps(0))
 ```
 ## lolshop ![c](https://img.shields.io/badge/solved-success)
-This is a serialization challenge, and we are given the link of the website and also the source, and the hint that the flag is in /secret/flag.txt file path. 
+This is a serialization challenge, and we are given the link of the website and also the source, and the hint that the flag is in `/secret/flag.txt` file path. 
 
-First of all, let's explore the code and make a plan: we can see that there is only one method that unserializes an object, located in State.php called restore($token).
+First of all, let's explore the code and make a plan: we can see that there is only one method that unserializes an object, located in *State.php* called `restore($token)`.
 
 ```php
     static function restore($token) {
@@ -108,7 +108,7 @@ First of all, let's explore the code and make a plan: we can see that there is o
     }
 ```
 
-After that, we can notice that the only path we can see in all these files is the one representing the products' image: if we are able to modify this, we may obtain the flag as the image of one of the products. This is located in Products.php.
+After that, we can notice that the only path we can see in all these files is the one representing the products' image: if we are able to modify this, we may obtain the flag as the image of one of the products. This is located in *Products.php*.
 
 ```php
     function getPicture() {
@@ -133,11 +133,11 @@ After that, we can notice that the only path we can see in all these files is th
 ```
 
 The idea is:
-1. we want to trigger the toDict() function of a product
-2. we search for every call the restore() method in the source code
-3. after finding the right restore() call, we try to craft a malicius payload
+1. we want to trigger the `toDict()` function of a product
+2. we search for every call the `restore()` method in the source code
+3. after finding the right `restore()` call, we try to craft a malicius payload
 
-We can notice that in the cart.php page we have:
+We can notice that in the *cart.php* page we have:
 ```php
 ...
 } else if(isset($_REQUEST['state'])) {
@@ -161,11 +161,11 @@ We can notice that in the cart.php page we have:
     http_response_code(400);
 }
 ```
-so we can see that we call the restore(), then we call the toDict() on the unserialized state: COOL
+so we can see that we call the `restore()`, then we call the `toDict()` on the unserialized state: COOL
 
-What if we try to unserialize a Product object, instead of a State object?
+What if we try to unserialize a `Product` object, instead of a State object?
 
-We will have this situation: our object will be unserialized without errors, because it's a valid one; then the $state->toDict() instruction will be executed, but now the method refers to Product.toDict(), so the getPicture() will be executed with a payload that WE control.
+We will have this situation: our object will be unserialized without errors, because it's a valid one; then the `$state->toDict()` instruction will be executed, but now the method refers to `Product.toDict()`, so the `getPicture()` will be executed with a payload that WE control.
 
 The final script is:
 ```python
@@ -198,7 +198,7 @@ Let's now try to play with the executable a little bit, and maybe we can discove
 
 We can insert or print some numbers (initially all 0s), but if we try to insert it asks us how many numbers, and then the numbers themselves. If we put any number in the first request, and then we skip the "real" insertion and look for the results, we can notice something interesting:
 
-The first two numbers displayed are 140723217504405 and 94243136696884, that in hex correspond to 0x7ffcad641891 and 0x55b6b0af7234. Cool, smell like memory addresses.
+The first two numbers displayed are 140723217504405 and 94243136696884, that in hex correspond to `0x7ffcad641891` and `0x55b6b0af7234`. Cool, smell like memory addresses.
 
-Let's have a better look with Ghidra, in order to figure out what are those numbers.
+Let's have a better look with `Ghidra`, in order to figure out what are those numbers.
 
