@@ -202,3 +202,9 @@ The first two numbers displayed are 140723217504405 and 94243136696884, that in 
 
 Let's have a better look with `Ghidra`, in order to figure out what are those numbers.
 
+From `Ghidra` we can notice that all the input is read by a function `get_int()`, that firstly does a read of 200 bytes and stores the result in a char buffer: we have no overflow, but we see that after this an `atoll()` is executed.
+
+So this is the idea, use the leak obtained in order to overwrite the **GOT** of `atoll()` with `system()`, then trigger the `get_int()` function and insert `/bin/sh` as input. Theoretically, this will work (the file is dynamically linked).
+
+
+
