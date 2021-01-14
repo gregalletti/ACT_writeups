@@ -1,6 +1,10 @@
 # aart ![c](https://img.shields.io/badge/solved-success)
 ### Analysis
-We can try to login before the privileges are inserted, exploiting the race condition.
+This challenge consisted of a website that allowed the creation of user accounts, login to those accounts as well as submitting ASCII art and voting for it. Furthermore there was a link on top of the page that provided the whole source of the website (except connect.php which contained the MySQL connection information).
+
+There are three files of interest to us, the login script, the register script and the database scheme, from which we can see that during registration, the account is first created, and only after the privileges are inserted in the database. 
+
+Obviously the flag is shown only if our account has those privileges, so we can try to login before the privileges are inserted, exploiting the race condition.
 ### Exploit
 ```python
 import requests
