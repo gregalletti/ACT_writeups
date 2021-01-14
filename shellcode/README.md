@@ -59,6 +59,8 @@ r.send(payload)
 r.interactive()
 ```
 
+Flag: **flag{congratz_you_used_a_sh3llcode!}**
+
 # sh3llc0d3 ![c](https://img.shields.io/badge/solved-success)
 ### Analysis
 This is pretty much the same of shellcode, but this time we can see from ```file ./sh3llc0d3``` that is on 32-bit architecture. That is, we have to write our shellcode in a different way (actually the main difference is the *int 0x80* instruction instead of *syscall*). 
