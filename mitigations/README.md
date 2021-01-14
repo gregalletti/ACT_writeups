@@ -103,6 +103,8 @@ time.sleep(0.1)
 r.interactive()
 ```
 
+Flag: **flag{you_can_also_leak_the_stack!}**
+
 # aslr ![c](https://img.shields.io/badge/solved-success)
 ### Analysis
 Same procedure to get the canary.
