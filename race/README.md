@@ -1,5 +1,6 @@
 # aart ![c](https://img.shields.io/badge/solved-success)
 ### Analysis
+We can try to login before the privileges are inserted, exploiting the race condition.
 ### Exploit
 ```python
 import requests
