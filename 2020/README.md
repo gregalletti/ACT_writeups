@@ -136,9 +136,9 @@ if (len(simgr.found) > 0):
 ![c](https://img.shields.io/badge/serialization-orange) ![p](https://img.shields.io/badge/Points-204-success)
 
 By looking at the source code and searching for unserialize/serialize calls we can see the two files download_user.php and upload_user.php
-We also know that the flag will be in /flag.txt so we can search for a path in al the Classes, but no luck.
+We also know that the flag will be in `/flag.txt` so we can search for a path in al the Classes, but no luck.
 Instead, we can see that in data.php we have the Challenges class (marked as WIP, also more interesting), where we have 2 magic methods construct and destruct.
-By looking at the code, the most promising looks destruct, because it calls stop() and so it will trigger an exec($this->stop_cmd, $output, $retval); and then echo($output[0]);
+By looking at the code, the most promising looks destruct, because it calls stop() and so it will trigger an `exec($this->stop_cmd, $output, $retval);` and then `echo($output[0]);`
 Idea: craft a serialized Challenge object, that will not result in an error because the class actually exists, and put a nice command in the stop command.
 
 With php we can to this:
@@ -147,12 +147,12 @@ With php we can to this:
     $sData = serialize($data);
     echo $sData;
 ```
-so that now we automatically have a serialized Challenge object: O:9:"Challenge":4:{s:4:"name";s:1:"A";s:11:"description";s:1:"B";s:9:"setup_cmd";N;s:8:"stop_cmd";N;}
+so that now we automatically have a serialized Challenge object: `O:9:"Challenge":4:{s:4:"name";s:1:"A";s:11:"description";s:1:"B";s:9:"setup_cmd";N;s:8:"stop_cmd";N;}`
 
-Notice that for now the commands are set to N = null, but if we put 'cat /flag.txt' it should work.
+Notice that for now the commands are set to N = null, but if we put *cat /flag.txt* it should work.
 
 Final object uploaded to the website:
-O:9:"Challenge":4:{s:4:"name";s:1:"A";s:11:"description";s:1:"B";s:9:"setup_cmd";N;s:8:"stop_cmd";s:13:"cat /flag.txt";}
+`O:9:"Challenge":4:{s:4:"name";s:1:"A";s:11:"description";s:1:"B";s:9:"setup_cmd";N;s:8:"stop_cmd";s:13:"cat /flag.txt";}`
 
 **flag{nice_yuo_got_the_unserialize_flag!}**
 
@@ -227,8 +227,8 @@ while True:
 ## crackme
 ![c](https://img.shields.io/badge/reversing-green) ![p](https://img.shields.io/badge/Points-204-success)
 
-Let's just run this in gdb, and set a simple breakpoint in the main with "b main".
-Let's see what the program does, because Ghidra tells us nothing for now. ("x /100i $rip") 
+Let's just run this in gdb, and set a simple breakpoint in the main with `b main`.
+Let's see what the program does, because Ghidra tells us nothing for now. (`x /100i $rip`) 
 
 ```assembly
 => 0x555555554866 <main+4>:		sub    rsp,0x10
@@ -254,16 +254,16 @@ Let's see what the program does, because Ghidra tells us nothing for now. ("x /1
    0x5555555548bd <main+91>:	ret   
 ```
 
-We can try to bypass the antirev with signal with gdb, by manipulating the handling of these signals. In particular, we can see that there is an int3 instruction that gdb will use as his breakpoint, so we won't see anything.
-The idea now is: get to 0x5555555548aa (int3), and write the command 'handle SIGTRAP pass' to not ignore the signal and enter in the catch_function
-Now we can remove it with 'handle SIGTRAP nopass', to be able to set our breakpoints as we want.
+We can try to bypass the antirev with signal with gdb, by manipulating the handling of these signals. In particular, we can see that there is an `int3` instruction that gdb will use as his breakpoint, so we won't see anything.
+The idea now is: get to `0x5555555548aa` (int3), and write the command `handle SIGTRAP pass` to not ignore the signal and enter in the catch_function
+Now we can remove it with `handle SIGTRAP nopass`, to be able to set our breakpoints as we want.
 From a rapid analysis with Ghidra we can see that the program does a XOR of every character of the input with a global array called key1, and compares them with another global variable (that we can see from Ghidra)
 
 Let's analyze the following code, searching for a xor operation.
-At address 0x5555555547dc there is xor    ecx, eax, and by looking at the registers value we can notice that in ecx is stored the first input charachter and in eax there is (hopefully) key1.
+At address `0x5555555547dc` there is `xor    ecx, eax`, and by looking at the registers value we can notice that in ecx is stored the first input charachter and in eax there is (hopefully) key1.
 A jump is then taken later if everything goes well, so we can use this as a double check of our input.
 
- ► 0x5555555547f0 <catch_function+150>  ✔ je     catch_function+159 <catch_function+159>
+` ► 0x5555555547f0 <catch_function+150>  ✔ je     catch_function+159 <catch_function+159>`
 
 For every char, the check is exactly: input[i] ^ key1[i] == ghidra_array[i]
 Let's make an example for the first one, we see that rax = 0x19 = key1[0], and ghidra_array[0] = 0x7f
