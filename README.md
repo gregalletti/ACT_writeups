@@ -25,8 +25,22 @@ Here is a list of all the categories involved, with links to the corresponding f
 |XSS|[here](https://github.com/gregalletti/ACT_writeups/tree/main/XSS)|3|3 |:heavy_check_mark:|
 |Packer|[here](https://github.com/gregalletti/ACT_writeups/tree/main/packer)|1|1 |:heavy_check_mark:|
 
-## Extra challenges (2019)
+## Exam challenges (2020/2021)
+Final score: 6 challenges solved out of 9
+
 Here is a list of all the categories involved, with links to the corresponding folders:
+
+|Topic|Name|Write up|Solved|
+|:---:|:--:|:------:|:----:|
+|Shellcode|syscall|[here](https://github.com/gregalletti/ACT_writeups/blob/main/2020/README.md#syscall)|:heavy_check_mark:|
+|Shellcode|syscaslr|[here](https://github.com/gregalletti/ACT_writeups/blob/main/2020/README.md#syscaslr)|:heavy_check_mark:|
+|Symbolic|cracksymb|[here](https://github.com/gregalletti/ACT_writeups/blob/main/2020/README.md#cracksymb)|:heavy_check_mark:|
+|Serialization|metactf|[here](https://github.com/gregalletti/ACT_writeups/blob/main/2020/README.md#metactf)|:heavy_check_mark:|
+|Race Condition|metarace|[here](https://github.com/gregalletti/ACT_writeups/blob/main/2020/README.md#metarace)|:heavy_check_mark:|
+|Reversing|crackme|[here](https://github.com/gregalletti/ACT_writeups/blob/main/2020/README.md#crackme)|:heavy_check_mark:|
+
+## Extra challenges (2019)
+Here is a list of all the available challenges of the previous year exam:
 
 |Topic|Name|Write up|Solved|
 |:---:|:--:|:------:|:----:|
