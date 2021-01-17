@@ -255,19 +255,25 @@ Let's see what the program does, because Ghidra tells us nothing for now. (`x /1
 ```
 
 We can try to bypass the antirev with signal with gdb, by manipulating the handling of these signals. In particular, we can see that there is an `int3` instruction that gdb will use as his breakpoint, so we won't see anything.
+
 The idea now is: get to `0x5555555548aa` (int3), and write the command `handle SIGTRAP pass` to not ignore the signal and enter in the catch_function
 Now we can remove it with `handle SIGTRAP nopass`, to be able to set our breakpoints as we want.
 From a rapid analysis with Ghidra we can see that the program does a XOR of every character of the input with a global array called key1, and compares them with another global variable (that we can see from Ghidra)
 
 Let's analyze the following code, searching for a xor operation.
+
 At address `0x5555555547dc` there is `xor    ecx, eax`, and by looking at the registers value we can notice that in ecx is stored the first input charachter and in eax there is (hopefully) key1.
+
 A jump is then taken later if everything goes well, so we can use this as a double check of our input.
 
 ` ► 0x5555555547f0 <catch_function+150>  ✔ je     catch_function+159 <catch_function+159>`
 
-For every char, the check is exactly: input[i] ^ key1[i] == ghidra_array[i]
+For every char, the check is exactly: **`input[i] ^ key1[i] == ghidra_array[i]`**
+
 Let's make an example for the first one, we see that rax = 0x19 = key1[0], and ghidra_array[0] = 0x7f
+
 So input[0] = key1[0] ^ ghidra_array[0] = 0x19 ^ 0x7f = 0x66 = 'f'
+
 Wow, that looks promising as "flag{.."
 
 With just some trial and errors and a lot of patience we can retrieve every needed character, resulting in the final flag (yes, a better solution exists for sure).
